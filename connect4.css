@@ -32,3 +32,7 @@
 #column-top td:hover {
   background-color: gold;
 }
+
+.reset-btn {
+  margin: 10px 155px;;
+}

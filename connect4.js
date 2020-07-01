@@ -78,6 +78,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // pop up alert message
+  document.getElementById('board').style.pointerEvents = 'none';
   alert(msg);
 }
 
@@ -99,13 +100,15 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    setTimeout(() => {
+      return endGame(`Player ${currPlayer} won!`)
+    }, 100);
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  // check if all cells in board are filled; if so call, call endGame
   if (board.every((row) => row.every(space => space))) {
-    endGame('We have a tie')
+    endGame('We have a tie!')
   }
 
   // switch players
@@ -130,7 +133,7 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
+  // read and understand this code. Add comments to help you.
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
@@ -148,3 +151,9 @@ function checkForWin() {
 
 makeBoard();
 makeHtmlBoard();
+
+const resetBtn = document.querySelector('button');
+resetBtn.addEventListener('click', () => {
+  if (confirm('Start a new game?')) 
+  location.reload();
+})
