@@ -17,9 +17,8 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // set "board" to empty HEIGHT x WIDTH matrix array
-  const row = new Array(WIDTH);
-  for (let i = 0; i < HEIGHT; i++) {
-    board.push(row);
+  for (let y = 0; y < HEIGHT; y++) {
+    board.push(Array.from({ length: WIDTH }));
   }
 }
 
@@ -56,17 +55,17 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
+  
   return 0;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // make a div and insert into correct table cell
   const gamePiece = document.createElement('div');
-  const column = document.getElementById(x);
-  console.log(column)
+  const column = document.getElementById(`${y}-${x}`);
+
   gamePiece.className = `piece player${currPlayer}`
   column.append(gamePiece);
 }
@@ -91,7 +90,9 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+  board[y][x] = currPlayer;
   placeInTable(y, x);
+  console.log(board)
 
   // check for win
   if (checkForWin()) {
@@ -100,9 +101,10 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  // if (board.every((space)))
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
