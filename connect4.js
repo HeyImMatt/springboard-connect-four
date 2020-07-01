@@ -55,8 +55,12 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  
-  return 0;
+  for (let i = board.length - 1; i >= 0; i--) {
+    if (!board[i][x]) {
+      return i;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -92,7 +96,6 @@ function handleClick(evt) {
   // TODO: add line to update in-memory board
   board[y][x] = currPlayer;
   placeInTable(y, x);
-  console.log(board)
 
   // check for win
   if (checkForWin()) {
